@@ -107,7 +107,6 @@ body::before {
     box-shadow: 0 4px 12px rgba(245,158,11,0.3);
 }
 
-/* Enlaces de navegación */
 .nav-links {
     display: flex;
     align-items: center;
@@ -335,14 +334,6 @@ body::before {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(11,43,94,0.2);
 }
-/* Mejora de botones: efecto de elevación más suave */
-.btn-primary, .btn-secondary, .login-btn, .whatsapp-btn {
-    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-}
-
-.btn-primary:active, .btn-secondary:active, .login-btn:active, .whatsapp-btn:active {
-    transform: scale(0.98);
-}
 
 .badge-hard { text-align: center; margin: 30px 0; }
 .badge-hard span {
@@ -519,23 +510,6 @@ body::before {
 .pricing-card i { font-size: 3rem; color: #F59E0B; margin-bottom: 16px; }
 .price { font-size: 3rem; font-weight: 800; color: #0B2B5E; margin: 20px 0; }
 .price span { font-size: 1rem; font-weight: 400; }
-.btn-pay {
-    background: #0B2B5E;
-    color: white;
-    width: 100%;
-    padding: 16px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-.btn-pay:hover {
-    background: #F59E0B;
-    color: #0B2B5E;
-    transform: translateY(-2px);
-}
 .guarantee { margin-top: 20px; font-size: 0.8rem; color: #6c757d; }
 
 /* ========== CONTACTO ========== */
@@ -629,14 +603,26 @@ footer {
     gap: 25px;
 }
 
-.footer-logo {
+.footer-logo-area {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1.3rem;
-    font-weight: 800;
+    gap: 12px;
 }
-.footer-logo i { color: #F59E0B; font-size: 1.6rem; }
+
+.footer-logo-img {
+    height: 55px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+.footer-brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
 
 .footer-links {
     display: flex;
@@ -663,14 +649,7 @@ footer {
     font-size: 0.75rem;
 }
 
-.footer-logo-img {
-    height: 55px;
-    width: auto;
-    max-width: none;
-    filter: brightness(0) invert(1);
-}
-
-/* ========== MODAL LOGIN / REGISTRO (CORREGIDO Y AISLADO) ========== */
+/* ========== MODAL LOGIN / REGISTRO ========== */
 .login-modal {
     display: none;
     position: fixed;
@@ -835,31 +814,6 @@ footer {
     }
 }
 
-/* ========== OTROS MODALES (pago, etc.) ========== */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-    z-index: 1010;
-}
-
-.modal-content {
-    background: white;
-    border-radius: 32px;
-    max-width: 450px;
-    width: 90%;
-    padding: 35px;
-    animation: modalFadeIn 0.3s ease;
-    text-align: center;
-}
-
 /* ========== CHATBOT ========== */
 .float-buttons {
     position: fixed;
@@ -972,7 +926,7 @@ footer {
 }
 .chat-input-area button:hover { background: #e67e22; }
 
-/* ========== OVERLAY (fondo oscuro) - DETRÁS del menú ========== */
+/* ========== OVERLAY ========== */
 .menu-overlay {
     display: none;
     position: fixed;
@@ -1054,17 +1008,10 @@ footer {
     .chatbot-widget { width: 320px; right: 15px; }
     .hero-illustration { max-width: 180px; }
     .footer-logo-img { height: 45px; }
-    .login-card {
-        padding: 28px 20px;
-    }
-    .login-panel h2 {
-        font-size: 1.5rem;
-    }
-    .form-options {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
+    .footer-brand { font-size: 1.3rem; }
+    .login-card { padding: 28px 20px; }
+    .login-panel h2 { font-size: 1.5rem; }
+    .form-options { flex-direction: column; gap: 10px; align-items: flex-start; }
 }
 
 @media (max-width: 480px) {
@@ -1115,37 +1062,3 @@ footer {
     50% { transform: translateY(-30px) scale(1.5); opacity: 0.6; }
     100% { transform: translateY(0px) scale(1); opacity: 0.3; }
 }
-/* ========== ANIMACIONES AL SCROLL (FADE-IN) ========== */
-.fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Aplicamos la animación a los elementos principales */
-.service-card, .job-card, .pricing-card, .contact-box, .social-section {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.service-card.visible, .job-card.visible, .pricing-card.visible,
-.contact-box.visible, .social-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Retrasos para efecto cascada */
-.service-card:nth-child(1) { transition-delay: 0.05s; }
-.service-card:nth-child(2) { transition-delay: 0.1s; }
-.service-card:nth-child(3) { transition-delay: 0.15s; }
-.service-card:nth-child(4) { transition-delay: 0.2s; }
-
-.job-card:nth-child(1) { transition-delay: 0.05s; }
-.job-card:nth-child(2) { transition-delay: 0.1s; }
-.job-card:nth-child(3) { transition-delay: 0.15s; }
