@@ -215,9 +215,20 @@ body::before {
     justify-content: space-between;
     padding: 60px 0 50px;
     gap: 40px;
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    /* NUEVO: gradiente animado */
+    background: linear-gradient(135deg, #f5f7fe 0%, #eef2ff 50%, #ffffff 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+    transition: all 0.3s ease;
     border-radius: 32px;
     margin: 20px 0;
+}
+
+/* Animación del gradiente */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero-left { flex: 1; }
@@ -260,20 +271,24 @@ body::before {
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* ===== AGREGAR ESTAS DOS LÍNEAS AQUÍ ===== */
+/* Ilustración del camello (tamaño y efecto hover) */
 .hero-illustration {
     width: 100%;
-    max-width: 200px;
+    max-width: 260px;
     height: auto;
     margin: 0 auto;
     display: block;
+    transition: transform 0.4s ease;
+}
+
+.hero-illustration:hover {
+    transform: scale(1.03);
 }
 
 .camel-emoji {
     text-align: center;
     margin-bottom: 16px;
 }
-/* ======================================= */
 
 .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
 
@@ -621,129 +636,60 @@ footer {
     font-size: 0.75rem;
 }
 
-/* ========== MODAL LOGIN / REGISTRO NUEVO DISEÑO ========== */
-.login-modal {
+/* ========== MODALES ========== */
+.login-modal, .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(5px);
     align-items: center;
     justify-content: center;
-    z-index: 1100;
-    padding: 20px;
+    z-index: 1010;
 }
 
-.login-card {
+.login-container, .modal-content {
     background: white;
     border-radius: 32px;
-    max-width: 480px;
-    width: 100%;
-    padding: 40px 36px;
-    position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    max-width: 450px;
+    width: 90%;
+    padding: 35px;
     animation: modalFadeIn 0.3s ease;
 }
 
-.login-card .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    font-size: 1.6rem;
-    cursor: pointer;
-    color: #9ca3af;
-    transition: 0.2s;
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.login-card .close-modal:hover {
-    color: #F59E0B;
-}
-
-.login-panel {
-    display: none;
-}
-
-.login-panel.active {
-    display: block;
-}
-
-.login-panel h2 {
-    font-size: 1.8rem;
+.login-tabs { display: flex; border-bottom: 1px solid #eef2f9; margin-bottom: 25px; }
+.login-tab {
+    flex: 1;
+    padding: 14px;
+    text-align: center;
     font-weight: 700;
-    margin-bottom: 8px;
-    color: #1f2937;
+    cursor: pointer;
+    transition: 0.3s;
 }
+.login-tab.active { color: #0B2B5E; border-bottom: 3px solid #F59E0B; }
 
-.login-panel .subtitle {
-    color: #6b7280;
-    margin-bottom: 24px;
-    font-size: 0.9rem;
-}
+.login-form { display: flex; flex-direction: column; gap: 20px; }
+.login-form.hidden { display: none; }
 
-.login-panel .subtitle a {
-    color: #F59E0B;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.login-panel .subtitle a:hover {
-    text-decoration: underline;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-weight: 600; font-size: 0.85rem; color: #374151; }
 .input-group input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    font-size: 1rem;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    transition: 0.3s;
 }
-
 .input-group input:focus {
     outline: none;
     border-color: #F59E0B;
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
-}
-
-.form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #4b5563;
-    cursor: pointer;
-}
-
-.checkbox-label input {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.forgot-link {
-    color: #F59E0B;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.forgot-link:hover {
-    text-decoration: underline;
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.1);
 }
 
 .login-btn {
@@ -752,54 +698,17 @@ footer {
     padding: 14px;
     border-radius: 40px;
     font-weight: 700;
-    font-size: 1rem;
     cursor: pointer;
+    transition: 0.3s;
     border: none;
-    transition: all 0.3s ease;
-    margin-top: 8px;
-    width: 100%;
 }
+.login-btn:hover { background: #F59E0B; color: #0B2B5E; }
 
-.login-btn:hover {
-    background: #F59E0B;
-    color: #0B2B5E;
-    transform: translateY(-2px);
-}
+.close-modal { float: right; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
+.close-modal:hover { color: #F59E0B; }
 
-.login-footer-demo {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 0.7rem;
-    color: #9ca3af;
-    border-top: 1px solid #eef2f9;
-    padding-top: 20px;
-}
+.login-footer { text-align: center; margin-top: 20px; font-size: 0.75rem; color: #9ca3af; }
 
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Ajustes responsive */
-@media (max-width: 520px) {
-    .login-card {
-        padding: 28px 20px;
-    }
-    .login-panel h2 {
-        font-size: 1.5rem;
-    }
-    .form-options {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
 /* ========== CHATBOT ========== */
 .float-buttons {
     position: fixed;
@@ -963,7 +872,7 @@ footer {
         padding: 20px;
         border-radius: 24px;
         box-shadow: 0 20px 35px rgba(0,0,0,0.2);
-        z-index: 1001;  /* Mayor que el overlay (998) */
+        z-index: 1001;
         gap: 8px;
     }
     
@@ -974,7 +883,7 @@ footer {
 /* Menú desplegable en móvil */
 @media (max-width: 768px) {
     .nav-links {
-        z-index: 1005;  /* Más alto que el overlay */
+        z-index: 1005;
     }
 }
 
@@ -1059,13 +968,20 @@ footer {
     
     .hero-left h1 { font-size: 1.8rem; }
     .hero { padding: 40px 20px; }
+    
+    /* NUEVO: en móvil desactivamos la animación del gradiente y usamos un fondo más simple */
+    .hero {
+        background: linear-gradient(135deg, #f8fafc, #ffffff);
+        animation: none;
+    }
+    
     .services-grid { padding: 30px 20px; }
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; }
     .chatbot-widget { width: 320px; right: 15px; }
     
     .hero-illustration {
-        max-width: 140px;
+        max-width: 180px;  /* un poco más pequeño en móvil */
     }
 }
 
@@ -1161,119 +1077,4 @@ body::before {
     0% { transform: translateY(0px) scale(1); opacity: 0.3; }
     50% { transform: translateY(-30px) scale(1.5); opacity: 0.6; }
     100% { transform: translateY(0px) scale(1); opacity: 0.3; }
-}
-
-/* ========== FOOTER CON LOGO BLANCO MÁS GRANDE ========== */
-footer {
-    background: #0B2B5E;
-    color: white;
-    padding: 45px 0 25px;
-    margin-top: 60px;
-}
-
-.footer-content {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 30px;
-}
-
-.footer-logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.footer-logo-img {
-    height: 80px;   /* Aumentado de 60px a 80px */
-    width: auto;
-    max-width: none;   /* Elimina cualquier límite de ancho */
-    filter: brightness(0) invert(1);
-}
-
-.footer-brand {
-    font-size: 1.8rem;  /* Más grande */
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.footer-links {
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-}
-
-.footer-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: #F59E0B;
-    transform: translateY(-2px);
-}
-
-.footer-social {
-    display: flex;
-    gap: 20px;
-}
-
-.footer-social a {
-    color: white;
-    font-size: 1.3rem;
-    transition: 0.3s ease;
-}
-
-.footer-social a:hover {
-    color: #F59E0B;
-    transform: translateY(-3px);
-}
-
-.footer-copy {
-    text-align: center;
-    padding-top: 28px;
-    margin-top: 28px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.75rem;
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-    .footer-links {
-        justify-content: center;
-        gap: 16px;
-    }
-    .footer-logo-img {
-        height: 70px;   /* También más grande en móvil */
-    }
-    .footer-brand {
-        font-size: 1.5rem;
-    }
-}
-/* ========== GRADIENTE ANIMADO EN HERO ========== */
-.hero {
-    background: linear-gradient(135deg, #f5f7fe 0%, #eef2ff 50%, #ffffff 100%);
-    background-size: 200% 200%;
-    animation: gradientShift 6s ease infinite;
-    transition: all 0.3s ease;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
