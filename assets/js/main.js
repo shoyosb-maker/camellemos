@@ -64,50 +64,61 @@ document.getElementById('footerCapacitacionBtn')?.addEventListener('click', () =
 document.getElementById('footerPlanesBtn')?.addEventListener('click', () => showPage('planes'));
 document.getElementById('footerContactoBtn')?.addEventListener('click', () => showPage('contacto'));
 
-// ========== JOBS ==========
+// // ========== JOBS ==========
 const jobsDB = {
     tecnologia: [
-        { title: "Ingeniero Software Senior", company: "LinkedIn Corp", location: "Remoto" },
-        { title: "Data Scientist", company: "Google", location: "CDMX" },
-        { title: "Frontend React Developer", company: "Globant", location: "Buenos Aires" }
+        { title: "Ingeniero Software Senior", company: "LinkedIn Corp", location: "Remoto", badge: "Nueva" },
+        { title: "Data Scientist", company: "Google", location: "CDMX", badge: "Nueva" },
+        { title: "Frontend React Developer", company: "Globant", location: "Buenos Aires", badge: "Nueva" }
     ],
     marketing: [
-        { title: "Growth Manager", company: "HubSpot", location: "Bogotá" },
-        { title: "Social Media Strategist", company: "WPP", location: "Remoto" }
+        { title: "Growth Manager", company: "HubSpot", location: "Bogotá", badge: "Nueva" },
+        { title: "Social Media Strategist", company: "WPP", location: "Remoto", badge: "Nueva" }
     ],
     finanzas: [
-        { title: "Financial Analyst", company: "JP Morgan", location: "Bogotá" },
-        { title: "Auditor Senior", company: "EY", location: "Santiago" }
+        { title: "Financial Analyst", company: "JP Morgan", location: "Bogotá", badge: "Nueva" },
+        { title: "Auditor Senior", company: "EY", location: "Santiago", badge: "Nueva" }
     ]
 };
 
 function fetchJobs(career) {
     const container = document.getElementById('jobsContainer');
-    if (!container) return;
-    container.innerHTML = '<div style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Cargando...</div>';
+    if (!container) {
+        console.error("No se encontró el contenedor 'jobsContainer'");
+        return;
+    }
+    container.innerHTML = '<div style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Cargando ofertas...</div>';
     setTimeout(() => {
         const jobs = jobsDB[career];
+        if (!jobs || jobs.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:30px;">No hay ofertas disponibles para esta categoría.</div>';
+            return;
+        }
         container.innerHTML = jobs.map(job => `
             <div class="job-card">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div class="job-title">${job.title}</div>
-                    <span class="job-badge">✨ Nueva</span>
+                    <span class="job-badge">✨ ${job.badge}</span>
                 </div>
                 <div class="job-company"><i class="fab fa-linkedin"></i> ${job.company}</div>
                 <div class="job-location">📍 ${job.location}</div>
-                <button class="btn-secondary" style="margin-top:12px; padding:6px 14px; font-size:0.8rem;" onclick="sendWhatsApp('Me interesa ${job.title}')">Aplicar vía WhatsApp</button>
+                <button class="btn-secondary" style="margin-top:12px; padding:6px 14px; font-size:0.8rem;" onclick="sendWhatsApp('Me interesa la oferta de ${job.title} en ${job.company}')">Aplicar vía WhatsApp</button>
             </div>
         `).join('');
-    }, 400);
+    }, 300);
 }
 
+// Inicializar eventos de los botones de categoría
 document.querySelectorAll('.career-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.career-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        fetchJobs(this.dataset.career);
+        const career = this.getAttribute('data-career');
+        if (career) fetchJobs(career);
     });
 });
+
+// Cargar ofertas iniciales (Tecnología)
 fetchJobs('tecnologia');
 
 // ========== MATERIAL PREMIUM ==========
