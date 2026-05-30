@@ -396,7 +396,19 @@ document.querySelectorAll('.quick-btn').forEach(btn => {
         sendMessage();
     });
 });
+// ========== ANIMACIONES AL SCROLL (INTERSECTION OBSERVER) ==========
+const animatedElements = document.querySelectorAll('.service-card, .job-card, .pricing-card, .contact-box, .social-section');
 
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Deja de observar una vez visible
+        }
+    });
+}, { threshold: 0.2 }); // Se activa cuando el 20% del elemento es visible
+
+animatedElements.forEach(el => observer.observe(el));
 // ========== ANIMACIONES DECORATIVAS ==========
 function createLeaf() {
     const leaf = document.createElement('div');
@@ -440,16 +452,3 @@ for (let i = 0; i < 30; i++) {
 updateUI();
 showPage('inicio');
 
-// ========== ANIMACIONES AL SCROLL (INTERSECTION OBSERVER) ==========
-const animatedElements = document.querySelectorAll('.service-card, .job-card, .pricing-card, .contact-box, .social-section');
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // Deja de observar una vez visible
-        }
-    });
-}, { threshold: 0.2 }); // Se activa cuando el 20% del elemento es visible
-
-animatedElements.forEach(el => observer.observe(el));
