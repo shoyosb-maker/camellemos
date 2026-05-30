@@ -1189,13 +1189,14 @@ footer {
 }
 
 .footer-logo-img {
-    height: 60px;   /* antes 45px, ahora más grande */
+    height: 80px;   /* Aumentado de 60px a 80px */
     width: auto;
-    filter: brightness(0) invert(1);  /* Convierte el logo a blanco */
+    max-width: none;   /* Elimina cualquier límite de ancho */
+    filter: brightness(0) invert(1);
 }
 
 .footer-brand {
-    font-size: 1.6rem;  /* antes 1.4rem, más grande */
+    font-size: 1.8rem;  /* Más grande */
     font-weight: 700;
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
@@ -1257,9 +1258,9 @@ footer {
         gap: 16px;
     }
     .footer-logo-img {
-        height: 50px;   /* en móvil también más grande */
+        height: 70px;   /* También más grande en móvil */
     }
     .footer-brand {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
 }
