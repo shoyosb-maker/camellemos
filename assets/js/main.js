@@ -49,7 +49,7 @@ function showPage(pageId) {
         if (activeBtn) activeBtn.classList.add('active');
     }
 }
-
+document.getElementById('navInicioBtnMenu')?.addEventListener('click', () => showPage('inicio'));
 document.getElementById('navTrabajosBtn')?.addEventListener('click', () => showPage('trabajos'));
 document.getElementById('navCapacitacionBtn')?.addEventListener('click', () => showPage('capacitacion'));
 document.getElementById('navPlanesBtn')?.addEventListener('click', () => showPage('planes'));
