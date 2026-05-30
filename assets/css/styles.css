@@ -1264,3 +1264,16 @@ footer {
         font-size: 1.5rem;
     }
 }
+/* ========== GRADIENTE ANIMADO EN HERO ========== */
+.hero {
+    background: linear-gradient(135deg, #f5f7fe 0%, #eef2ff 50%, #ffffff 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+    transition: all 0.3s ease;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
