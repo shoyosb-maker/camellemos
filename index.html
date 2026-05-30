@@ -3,29 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Camellando | Outsourcing + Capacitación Profesional</title>
     
+    <!-- Título SEO (único y descriptivo, menos de 60 caracteres) -->
+    <title>Camellemos | Acelerador de Carrera y Capacitación Profesional</title>
+    
+    <!-- Meta descripción (máx. 155 caracteres) -->
+    <meta name="description" content="Capacitación intensiva, revisión de HV con IA, entrevistas mock y outsourcing laboral. +300 colocaciones exitosas. ¡Impulsa tu carrera!">
+    
+    <!-- Palabras clave (opcional pero recomendado) -->
+    <meta name="keywords" content="Camellemos, empleo, trabajo, hoja de vida, entrevistas, outsourcing, capacitación laboral, Colombia">
+    
+    <!-- Autor -->
+    <meta name="author" content="Camellemos">
+    
+    <!-- Robots: index, follow (por defecto) -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph (para redes sociales) -->
+    <meta property="og:title" content="Camellemos | Acelerador de Carrera">
+    <meta property="og:description" content="Capacitación intensiva + optimización de HV + preparación para entrevistas. +300 colocaciones exitosas.">
+    <meta property="og:image" content="https://tudominio.com/assets/images/logo-camello.png">
+    <meta property="og:url" content="https://tudominio.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Camellemos | Acelerador de Carrera">
+    <meta name="twitter:description" content="Capacitación y outsourcing profesional para conseguir el trabajo que mereces.">
+    <meta name="twitter:image" content="https://tudominio.com/assets/images/logo-camello.png">
+    
+    <!-- Canonical URL (ajústalo cuando subas a producción) -->
+    <link rel="canonical" href="https://tudominio.com">
+    
+    <!-- Favicon (agrega uno si tienes) -->
+    <!-- <link rel="icon" type="image/png" href="assets/images/favicon.png"> -->
+    
+    <!-- Hojas de estilo externas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
+<!-- Botones flotantes -->
 <div class="float-buttons">
-    <div class="whatsapp-float" id="whatsappFloatBtn"><i class="fab fa-whatsapp"></i></div>
-    <div class="chatbot-float" id="chatbotFloatBtn"><i class="fas fa-robot"></i></div>
+    <div class="whatsapp-float" id="whatsappFloatBtn" aria-label="Contactar por WhatsApp"><i class="fab fa-whatsapp"></i></div>
+    <div class="chatbot-float" id="chatbotFloatBtn" aria-label="Abrir chatbot de ayuda"><i class="fas fa-robot"></i></div>
 </div>
 
-<!-- Modal Login / Registro (nuevo diseño) -->
-<div id="loginModal" class="login-modal">
+<!-- Modal Login / Registro -->
+<div id="loginModal" class="login-modal" aria-hidden="true">
     <div class="login-card">
-        <span class="close-modal" id="closeLoginModal">&times;</span>
+        <span class="close-modal" id="closeLoginModal" aria-label="Cerrar modal">&times;</span>
         
-        <!-- Formulario de Inicio de Sesión -->
         <div id="loginPanel" class="login-panel active">
             <h2>Welcome back!</h2>
             <p class="subtitle">Don't have an account? <a href="#" id="showRegisterLink">Sign up</a></p>
-            
             <form id="loginForm" class="login-form">
                 <div class="input-group">
                     <input type="email" id="loginEmail" placeholder="Email address" required>
@@ -43,11 +77,9 @@
             </form>
         </div>
         
-        <!-- Formulario de Registro -->
         <div id="registerPanel" class="login-panel">
             <h2>Create account</h2>
             <p class="subtitle">Already have an account? <a href="#" id="showLoginLink">Sign in</a></p>
-            
             <form id="registerForm" class="login-form">
                 <div class="input-group">
                     <input type="text" id="regName" placeholder="Full name" required>
@@ -69,13 +101,13 @@
 </div>
 
 <!-- Chatbot Widget -->
-<div class="chatbot-widget" id="chatbotWidget">
+<div class="chatbot-widget" id="chatbotWidget" aria-label="Ventana de chat asistente">
     <div class="chatbot-header">
-        <h3><i class="fas fa-robot"></i> Camellando AI</h3>
-        <button class="close-chat" id="closeChatBtn">&times;</button>
+        <h3><i class="fas fa-robot"></i> Camellemos AI</h3>
+        <button class="close-chat" id="closeChatBtn" aria-label="Cerrar chat">&times;</button>
     </div>
     <div class="chat-messages" id="chatMessages">
-        <div class="message bot">🐪 ¡Hola! Soy el asistente de Camellando. ¿En qué puedo ayudarte?</div>
+        <div class="message bot">🐪 ¡Hola! Soy el asistente de Camellemos. ¿En qué puedo ayudarte?</div>
     </div>
     <div class="quick-buttons" id="quickButtons">
         <button class="quick-btn" data-question="Precios">💰 Precios</button>
@@ -86,7 +118,7 @@
     </div>
     <div class="chat-input-area">
         <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
-        <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+        <button id="sendChatBtn" aria-label="Enviar mensaje"><i class="fas fa-paper-plane"></i></button>
     </div>
 </div>
 
@@ -94,140 +126,203 @@
     <!-- Overlay para menú móvil -->
     <div class="menu-overlay" id="menuOverlay"></div>
     
-    <nav class="navbar">
+    <!-- Navbar principal -->
+    <nav class="navbar" aria-label="Navegación principal">
         <div class="logo-container">
-            <a href="javascript:void(0)" class="logo" id="navInicioBtn">
-                <img src="assets/images/logo-camello.png" alt="Camellando" class="logo-img">
+            <a href="javascript:void(0)" class="logo" id="navInicioBtn" aria-label="Ir a inicio">
+                <img src="assets/images/logo-camello.png" alt="Logo Camellemos – Acelerador de Carrera" class="logo-img">
             </a>
         </div>
         
-        <div class="menu-toggle" id="mobileMenuToggle">
+        <div class="menu-toggle" id="mobileMenuToggle" aria-label="Menú móvil" role="button" tabindex="0">
             <i class="fas fa-bars"></i>
         </div>
         
-        <div class="nav-links" id="navLinks">
-            <button id="navTrabajosBtn">Trabajos</button>
-            <button id="navCapacitacionBtn">Capacitación</button>
-            <button id="navPlanesBtn">Planes</button>
-            <button id="navContactoBtn">Contacto</button>
-            <button id="loginNavBtn" class="btn-login-nav"><i class="fas fa-user"></i> Iniciar Sesión</button>
-            <div id="userMenu" style="display:none;" class="user-avatar"><i class="fas fa-user-circle"></i><span id="userNameDisplay">Usuario</span></div>
+        <div class="nav-links" id="navLinks" aria-label="Enlaces de navegación">
+            <button id="navTrabajosBtn" aria-label="Ver ofertas de trabajo">Trabajos</button>
+            <button id="navCapacitacionBtn" aria-label="Ver planes de capacitación">Capacitación</button>
+            <button id="navPlanesBtn" aria-label="Ver planes y precios">Planes</button>
+            <button id="navContactoBtn" aria-label="Contactar con el equipo">Contacto</button>
+            <button id="loginNavBtn" class="btn-login-nav" aria-label="Iniciar sesión"><i class="fas fa-user"></i> Iniciar Sesión</button>
+            <div id="userMenu" style="display:none;" class="user-avatar" aria-label="Menú de usuario"><i class="fas fa-user-circle"></i><span id="userNameDisplay">Usuario</span></div>
         </div>
     </nav>
 
-    <!-- PÁGINA INICIO -->
-    <div id="page-inicio" class="page">
-        <div class="hero">
+    <!-- PÁGINA INICIO (estructura semántica) -->
+    <main id="page-inicio" class="page">
+        <section class="hero" aria-labelledby="hero-title">
             <div class="hero-left">
-                <h1>Domina tu futuro<br>Consigue el trabajo que mereces</h1>
+                <h1 id="hero-title">Domina tu futuro<br>Consigue el trabajo que mereces</h1>
                 <p>Capacitación intensiva + optimización de HV + preparación para entrevistas. Te convertimos en el candidato imparable que toda empresa quiere contratar.</p>
                 <div class="btn-group">
-                    <button class="btn-primary" id="heroWhatsappBtn"><i class="fab fa-whatsapp"></i> Quiero mi asesoría</button>
-                    <button class="btn-secondary" id="heroToJobsBtn"><i class="fas fa-briefcase"></i> Ver trabajos activos</button>
+                    <button class="btn-primary" id="heroWhatsappBtn" aria-label="Contactar por WhatsApp para asesoría"><i class="fab fa-whatsapp"></i> Quiero mi asesoría</button>
+                    <button class="btn-secondary" id="heroToJobsBtn" aria-label="Ver ofertas de trabajo activas">Ver trabajos activos</button>
                 </div>
             </div>
             <div class="hero-right">
                 <div class="camel-emoji">
-                    <img src="assets/images/camello-illustration.png" alt="Camellando" class="hero-illustration">
+                    <img src="assets/images/camello-illustration.png" alt="Ilustración de camello - símbolo de Camellemos" class="hero-illustration">
                 </div>
                 <h3>+300 colocaciones exitosas</h3>
                 <p>Top 1% en acompañamiento profesional</p>
-                <div class="stars">★★★★★ 5.0 (289 reseñas)</div>
+                <div class="stars" aria-label="Calificación 5 estrellas">★★★★★ 5.0 (289 reseñas)</div>
             </div>
+        </section>
+        
+        <div class="badge-hard" aria-label="Sello de calidad">
+            <span>🔥 SOMOS LOS MÁS DUROS DEL MERCADO 🔥</span>
         </div>
-        <div class="badge-hard"><span>🔥 SOMOS LOS MÁS DUROS DEL MERCADO 🔥</span></div>
-    </div>
+        
+        <!-- Migas de pan (breadcrumb) opcional para SEO -->
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+            <ul>
+                <li><a href="#" id="breadcrumbInicio">Inicio</a></li>
+            </ul>
+        </nav>
+    </main>
 
     <!-- PÁGINA TRABAJOS -->
     <div id="page-trabajos" class="page">
-        <div class="jobs-section">
-            <h2 class="section-title"><i class="fab fa-linkedin"></i> Ofertas destacadas LinkedIn</h2>
-            <div class="career-selector" id="careerSelector">
+        <section class="jobs-section" aria-labelledby="jobs-title">
+            <h2 id="jobs-title" class="section-title"><i class="fab fa-linkedin"></i> Ofertas destacadas LinkedIn</h2>
+            <div class="career-selector" id="careerSelector" aria-label="Filtro de categoría profesional">
                 <button class="career-btn active" data-career="tecnologia">💻 Tecnología & IT</button>
                 <button class="career-btn" data-career="marketing">📊 Marketing & Ventas</button>
                 <button class="career-btn" data-career="finanzas">💰 Finanzas & Administración</button>
             </div>
-            <div id="jobsContainer" class="jobs-list">
+            <div id="jobsContainer" class="jobs-list" aria-live="polite">
                 <div style="text-align:center; padding:30px;">Cargando oportunidades...</div>
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- PÁGINA CAPACITACIÓN -->
     <div id="page-capacitacion" class="page">
-        <h2 class="section-title">📚 Potencia tu perfil profesional</h2>
-        <div class="services-grid">
-            <div class="service-card"><i class="fas fa-file-alt"></i><h3>Revisión HV con IA</h3><p>Análisis ATS + optimización automática para pasar filtros.</p></div>
-            <div class="service-card"><i class="fas fa-comments"></i><h3>Entrevistas Mock</h3><p>Simulaciones reales con feedback de reclutadores expertos.</p></div>
-            <div class="service-card"><i class="fas fa-chart-line"></i><h3>Outsourcing Élite</h3><p>Te postulamos a +50 vacantes estratégicas por mes.</p></div>
-            <div class="service-card"><i class="fas fa-brain"></i><h3>Mentalidad Ganadora</h3><p>Negociación salarial y storytelling para destacar.</p></div>
-        </div>
-        <div id="premiumMaterialsContainer"></div>
-        <div style="text-align:center; margin:30px 0;">
-            <button class="btn-primary" id="capacitacionToPlanesBtn"><i class="fas fa-rocket"></i> ACCEDER A PLAN COMPLETO</button>
-        </div>
+        <section class="services-section" aria-labelledby="services-title">
+            <h2 id="services-title" class="section-title">📚 Potencia tu perfil profesional</h2>
+            <div class="services-grid">
+                <article class="service-card">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i>
+                    <h3>Revisión HV con IA</h3>
+                    <p>Análisis ATS + optimización automática para pasar filtros.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fas fa-comments" aria-hidden="true"></i>
+                    <h3>Entrevistas Mock</h3>
+                    <p>Simulaciones reales con feedback de reclutadores expertos.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    <h3>Outsourcing Élite</h3>
+                    <p>Te postulamos a +50 vacantes estratégicas por mes.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fas fa-brain" aria-hidden="true"></i>
+                    <h3>Mentalidad Ganadora</h3>
+                    <p>Negociación salarial y storytelling para destacar.</p>
+                </article>
+            </div>
+            <div id="premiumMaterialsContainer"></div>
+            <div style="text-align:center; margin:30px 0;">
+                <button class="btn-primary" id="capacitacionToPlanesBtn" aria-label="Ver planes de suscripción">ACCEDER A PLAN COMPLETO</button>
+            </div>
+        </section>
     </div>
 
-    <!-- PÁGINA PLANES (sin botón de pago) -->
+    <!-- PÁGINA PLANES -->
     <div id="page-planes" class="page">
-        <div class="pricing-card">
-            <i class="fas fa-crown"></i>
-            <h2>Plan Élite Camellando</h2>
-            <p>Capacitación completa + IA de postulación + acompañamiento personalizado hasta tu primer trabajo.</p>
-            <div class="price">$49 <span>/mes</span></div>
-            <!-- Botón "Acceder Ahora" eliminado -->
-            <p class="guarantee">✅ Garantía de satisfacción · Cancelación flexible</p>
-        </div>
+        <section class="pricing-section" aria-labelledby="pricing-title">
+            <div class="pricing-card">
+                <i class="fas fa-crown" aria-hidden="true"></i>
+                <h2 id="pricing-title">Plan Élite Camellemos</h2>
+                <p>Capacitación completa + IA de postulación + acompañamiento personalizado hasta tu primer trabajo.</p>
+                <div class="price">$49 <span>/mes</span></div>
+                <p class="guarantee">✅ Garantía de satisfacción · Cancelación flexible</p>
+            </div>
+        </section>
     </div>
 
     <!-- PÁGINA CONTACTO -->
     <div id="page-contacto" class="page">
-        <div class="contact-box">
-            <i class="fas fa-camel"></i>
-            <h1>¿Listo para transformar tu carrera?</h1>
-            <p>Nuestros asesores expertos te guiarán paso a paso para conseguir el trabajo de tus sueños.</p>
-            <button id="contactWhatsappBtn" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> CHATEAR AHORA</button>
-            <p class="response-time">✅ Respuesta en menos de 5 minutos · Asesoría 100% personalizada</p>
-        </div>
-        <div class="social-section">
-            <h3><i class="fas fa-share-alt"></i> Conéctate con nosotros</h3>
-            <div class="social-icons">
-                <a href="#" class="social-icon" id="socialLinkedin"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-icon" id="socialInstagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon" id="socialFacebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon" id="socialTwitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon" id="socialYoutube"><i class="fab fa-youtube"></i></a>
+        <section class="contact-section" aria-labelledby="contact-title">
+            <div class="contact-box">
+                <i class="fas fa-camel" aria-hidden="true"></i>
+                <h1 id="contact-title">¿Listo para transformar tu carrera?</h1>
+                <p>Nuestros asesores expertos te guiarán paso a paso para conseguir el trabajo de tus sueños.</p>
+                <button id="contactWhatsappBtn" class="whatsapp-btn" aria-label="Abrir WhatsApp para contacto"><i class="fab fa-whatsapp"></i> CHATEAR AHORA</button>
+                <p class="response-time">✅ Respuesta en menos de 5 minutos · Asesoría 100% personalizada</p>
             </div>
-        </div>
+            <div class="social-section">
+                <h3><i class="fas fa-share-alt" aria-hidden="true"></i> Conéctate con nosotros</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" id="socialLinkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" id="socialInstagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon" id="socialFacebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" id="socialTwitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon" id="socialYoutube" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 
+<!-- Footer optimizado para SEO -->
 <footer>
     <div class="footer-content">
         <div class="footer-logo-area">
-            <img src="assets/images/IMG_7500.png" alt="Camellemos" class="footer-logo-img">
+            <img src="assets/images/IMG_7500.png" alt="Camellemos – Acelerador de Carrera" class="footer-logo-img">
             <span class="footer-brand">Camellemos</span>
         </div>
-        <div class="footer-links">
+        <div class="footer-links" aria-label="Enlaces del pie de página">
             <a href="javascript:void(0)" id="footerInicioBtn">Inicio</a>
             <a href="javascript:void(0)" id="footerTrabajosBtn">Trabajos</a>
             <a href="javascript:void(0)" id="footerCapacitacionBtn">Capacitación</a>
             <a href="javascript:void(0)" id="footerPlanesBtn">Planes</a>
             <a href="javascript:void(0)" id="footerContactoBtn">Contacto</a>
         </div>
-        <div class="footer-social">
-            <a href="#" id="footerLinkedin"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" id="footerInstagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" id="footerFacebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" id="footerTwitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" id="footerYoutube"><i class="fab fa-youtube"></i></a>
+        <div class="footer-social" aria-label="Redes sociales">
+            <a href="#" id="footerLinkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" id="footerInstagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" id="footerFacebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" id="footerTwitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" id="footerYoutube" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
     </div>
     <div class="footer-copy">
-<p>© 2026 Camellemos — Acelerador de Carrera. Potenciamos tu éxito.</p>
+        <p>© 2026 Camellemos — Acelerador de Carrera. Potenciamos tu éxito.</p>
     </div>
 </footer>
 
+<!-- Scripts -->
 <script src="assets/js/main.js"></script>
+
+<!-- Datos estructurados JSON-LD para SEO (organización) -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Camellemos",
+    "alternateName": "Acelerador de Carrera",
+    "url": "https://tudominio.com",
+    "logo": "https://tudominio.com/assets/images/logo-camello.png",
+    "description": "Capacitación intensiva, revisión de hoja de vida con IA, entrevistas mock y outsourcing laboral para profesionales en Colombia.",
+    "sameAs": [
+        "https://www.linkedin.com/company/camellando",
+        "https://www.instagram.com/camellando",
+        "https://www.facebook.com/camellando",
+        "https://twitter.com/camellando",
+        "https://www.youtube.com/@camellando"
+    ],
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+573177366474",
+        "contactType": "customer service",
+        "areaServed": "CO",
+        "availableLanguage": ["Spanish", "English"]
+    },
+    "foundingDate": "2025",
+    "slogan": "Potenciamos tu éxito profesional"
+}
+</script>
 </body>
 </html>
