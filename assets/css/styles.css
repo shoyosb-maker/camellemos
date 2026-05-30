@@ -32,7 +32,7 @@ body::before {
     padding: 0 20px;
 }
 
-/* ========== NAVBAR MEJORADO ========== */
+/* ========== NAVBAR ========== */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -84,7 +84,7 @@ body::before {
     filter: drop-shadow(0 4px 12px rgba(245,158,11,0.3));
 }
 
-/* Botón hamburguesa mejorado */
+/* Botón hamburguesa */
 .menu-toggle {
     display: none;
     font-size: 1.6rem;
@@ -125,7 +125,6 @@ body::before {
     padding: 10px 18px;
     transition: all 0.3s ease;
     border-radius: 40px;
-    position: relative;
     font-family: 'Inter', sans-serif;
 }
 
@@ -140,7 +139,6 @@ body::before {
     background: rgba(245,158,11,0.12);
 }
 
-/* Botón de login mejorado */
 .btn-login-nav {
     background: linear-gradient(135deg, #0B2B5E, #1E4A7A) !important;
     color: white !important;
@@ -158,7 +156,6 @@ body::before {
     box-shadow: 0 6px 16px rgba(245,158,11,0.3);
 }
 
-/* Avatar de usuario */
 .user-avatar {
     display: flex;
     align-items: center;
@@ -201,7 +198,6 @@ body::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Asegurar que el contenido no interfiera con el menú */
 .container, .hero, .jobs-section, .services-grid, .pricing-card, .contact-box, footer {
     position: relative;
     z-index: 1;
@@ -218,9 +214,9 @@ body::before {
     background: linear-gradient(135deg, #f5f7fe 0%, #eef2ff 50%, #ffffff 100%);
     background-size: 200% 200%;
     animation: gradientShift 6s ease infinite;
-    transition: all 0.3s ease;
     border-radius: 32px;
     margin: 20px 0;
+    transition: all 0.3s ease;
 }
 
 @keyframes gradientShift {
@@ -428,7 +424,7 @@ body::before {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 28px;
     margin: 40px 0;
-    background: transparent; /* Eliminamos fondo sólido */
+    background: transparent;
     padding: 0;
 }
 
@@ -498,6 +494,7 @@ body::before {
     color: #4b5563;
     line-height: 1.5;
 }
+
 /* ========== PRICING ========== */
 .pricing-card {
     background: white;
@@ -514,7 +511,6 @@ body::before {
 .pricing-card i { font-size: 3rem; color: #F59E0B; margin-bottom: 16px; }
 .price { font-size: 3rem; font-weight: 800; color: #0B2B5E; margin: 20px 0; }
 .price span { font-size: 1rem; font-weight: 400; }
-
 .btn-pay {
     background: #0B2B5E;
     color: white;
@@ -527,13 +523,11 @@ body::before {
     transition: all 0.3s ease;
     border: none;
 }
-
 .btn-pay:hover {
     background: #F59E0B;
     color: #0B2B5E;
     transform: translateY(-2px);
 }
-
 .guarantee { margin-top: 20px; font-size: 0.8rem; color: #6c757d; }
 
 /* ========== CONTACTO ========== */
@@ -661,7 +655,6 @@ footer {
     font-size: 0.75rem;
 }
 
-/* Logo del footer del mismo tamaño que el navbar */
 .footer-logo-img {
     height: 55px;
     width: auto;
@@ -669,60 +662,129 @@ footer {
     filter: brightness(0) invert(1);
 }
 
-/* ========== MODALES ========== */
-.login-modal, .modal {
+/* ========== MODAL LOGIN / REGISTRO (CORREGIDO Y AISLADO) ========== */
+.login-modal {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(5px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     align-items: center;
     justify-content: center;
-    z-index: 1010;
+    z-index: 1100;
+    padding: 20px;
 }
 
-.login-container, .modal-content {
+.login-card {
     background: white;
     border-radius: 32px;
-    max-width: 450px;
-    width: 90%;
-    padding: 35px;
+    max-width: 480px;
+    width: 100%;
+    padding: 40px 36px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     animation: modalFadeIn 0.3s ease;
 }
 
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-.login-tabs { display: flex; border-bottom: 1px solid #eef2f9; margin-bottom: 25px; }
-.login-tab {
-    flex: 1;
-    padding: 14px;
-    text-align: center;
-    font-weight: 700;
+.login-card .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 1.6rem;
     cursor: pointer;
-    transition: 0.3s;
+    color: #9ca3af;
+    transition: 0.2s;
 }
-.login-tab.active { color: #0B2B5E; border-bottom: 3px solid #F59E0B; }
 
-.login-form { display: flex; flex-direction: column; gap: 20px; }
-.login-form.hidden { display: none; }
+.login-card .close-modal:hover {
+    color: #F59E0B;
+}
 
-.input-group { display: flex; flex-direction: column; gap: 8px; }
-.input-group label { font-weight: 600; font-size: 0.85rem; color: #374151; }
+.login-panel {
+    display: none;
+}
+
+.login-panel.active {
+    display: block;
+}
+
+.login-panel h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1f2937;
+}
+
+.login-panel .subtitle {
+    color: #6b7280;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+}
+
+.login-panel .subtitle a {
+    color: #F59E0B;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-panel .subtitle a:hover {
+    text-decoration: underline;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .input-group input {
-    padding: 14px;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    font-size: 0.95rem;
-    transition: 0.3s;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    font-size: 1rem;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
 }
+
 .input-group input:focus {
     outline: none;
     border-color: #F59E0B;
-    box-shadow: 0 0 0 3px rgba(245,158,11,0.1);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: #F59E0B;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
 }
 
 .login-btn {
@@ -731,16 +793,64 @@ footer {
     padding: 14px;
     border-radius: 40px;
     font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s;
     border: none;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    width: 100%;
 }
-.login-btn:hover { background: #F59E0B; color: #0B2B5E; }
 
-.close-modal { float: right; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
-.close-modal:hover { color: #F59E0B; }
+.login-btn:hover {
+    background: #F59E0B;
+    color: #0B2B5E;
+    transform: translateY(-2px);
+}
 
-.login-footer { text-align: center; margin-top: 20px; font-size: 0.75rem; color: #9ca3af; }
+.login-footer-demo {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    border-top: 1px solid #eef2f9;
+    padding-top: 20px;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========== OTROS MODALES (pago, etc.) ========== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    z-index: 1010;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 32px;
+    max-width: 450px;
+    width: 90%;
+    padding: 35px;
+    animation: modalFadeIn 0.3s ease;
+    text-align: center;
+}
 
 /* ========== CHATBOT ========== */
 .float-buttons {
@@ -872,68 +982,11 @@ footer {
     display: block;
 }
 
-/* ========== NAVBAR ========== */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 24px;
-    background: rgba(255,255,255,0.98);
-    border-radius: 60px;
-    margin: 10px 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    position: relative;
-    z-index: 1000;
-}
-
-/* ========== MENÚ MÓVIL ========== */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
-        z-index: 1002;
     }
-    
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: calc(100% - 30px);
-        background: white;
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 15px;
-        right: 15px;
-        padding: 20px;
-        border-radius: 24px;
-        box-shadow: 0 20px 35px rgba(0,0,0,0.2);
-        z-index: 1001;
-        gap: 8px;
-    }
-    
-    .nav-links.active {
-        display: flex;
-    }
-}
-/* Menú desplegable en móvil */
-@media (max-width: 768px) {
-    .nav-links {
-        z-index: 1005;
-    }
-}
-
-/* ========== RESPONSIVE: MENÚ MÓVIL MEJORADO ========== */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 8px 16px;
-        border-radius: 40px;
-        margin: 8px;
-        z-index: 1002;
-    }
-    
-    .menu-toggle {
-        display: flex;
-        z-index: 1003;
-    }
-    
     .nav-links {
         display: none;
         flex-direction: column;
@@ -950,23 +1003,14 @@ footer {
         gap: 8px;
         border: 1px solid rgba(0,0,0,0.05);
     }
-    
     .nav-links.active {
         display: flex;
         animation: slideDown 0.3s ease;
     }
-    
     @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
     .nav-links button {
         padding: 14px 16px;
         width: 100%;
@@ -975,50 +1019,43 @@ footer {
         border-bottom: 1px solid #eef2f9;
         border-radius: 16px;
         background: white;
-        z-index: 1006;
     }
-    
-    .nav-links button:last-child {
-        border-bottom: none;
-    }
-    
+    .nav-links button:last-child { border-bottom: none; }
     .btn-login-nav {
         margin-left: 0 !important;
         text-align: center;
         margin-top: 8px;
+        width: 100%;
     }
-    
     .user-avatar {
         margin-left: 0;
         justify-content: center;
         margin-top: 8px;
         width: 100%;
     }
-    
-    .logo-img {
-        height: 45px;
-    }
-    
+    .logo-img { height: 45px; }
     .hero-left h1 { font-size: 1.8rem; }
     .hero { padding: 40px 20px; }
-    
     .hero {
         background: linear-gradient(135deg, #f8fafc, #ffffff);
         animation: none;
     }
-    
     .services-grid { padding: 30px 20px; }
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; }
     .chatbot-widget { width: 320px; right: 15px; }
-    
-    .hero-illustration {
-        max-width: 180px;
+    .hero-illustration { max-width: 180px; }
+    .footer-logo-img { height: 45px; }
+    .login-card {
+        padding: 28px 20px;
     }
-    
-    /* Footer logo móvil - mismo tamaño que navbar móvil */
-    .footer-logo-img {
-        height: 45px;
+    .login-panel h2 {
+        font-size: 1.5rem;
+    }
+    .form-options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
     }
 }
 
@@ -1027,24 +1064,8 @@ footer {
     .btn-primary, .btn-secondary { padding: 10px 20px; font-size: 0.85rem; }
     .chatbot-widget { width: 300px; }
 }
-/* ========== FONDO ANIMADO Y DECORACIONES ========== */
 
-body {
-    position: relative;
-    overflow-x: hidden;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
-    z-index: -2;
-}
-
+/* ========== ANIMACIONES DECORATIVAS ========== */
 .leaf {
     position: fixed;
     top: -20px;
@@ -1054,18 +1075,10 @@ body::before {
     opacity: 0.6;
     animation: fall linear infinite;
 }
-
 @keyframes fall {
-    0% {
-        transform: translateY(-20px) rotate(0deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.7; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
-
 .floating-shape {
     position: fixed;
     border-radius: 50%;
@@ -1074,13 +1087,11 @@ body::before {
     pointer-events: none;
     animation: float 8s ease-in-out infinite;
 }
-
 @keyframes float {
     0% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-20px) rotate(5deg); }
     100% { transform: translateY(0px) rotate(0deg); }
 }
-
 .particle {
     position: fixed;
     width: 2px;
@@ -1091,7 +1102,6 @@ body::before {
     pointer-events: none;
     animation: particleFloat 6s ease-in-out infinite;
 }
-
 @keyframes particleFloat {
     0% { transform: translateY(0px) scale(1); opacity: 0.3; }
     50% { transform: translateY(-30px) scale(1.5); opacity: 0.6; }
