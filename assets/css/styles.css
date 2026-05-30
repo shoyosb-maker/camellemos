@@ -215,7 +215,6 @@ body::before {
     justify-content: space-between;
     padding: 60px 0 50px;
     gap: 40px;
-    /* NUEVO: gradiente animado */
     background: linear-gradient(135deg, #f5f7fe 0%, #eef2ff 50%, #ffffff 100%);
     background-size: 200% 200%;
     animation: gradientShift 6s ease infinite;
@@ -224,7 +223,6 @@ body::before {
     margin: 20px 0;
 }
 
-/* Animación del gradiente */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -271,7 +269,6 @@ body::before {
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* Ilustración del camello (tamaño y efecto hover) */
 .hero-illustration {
     width: 100%;
     max-width: 260px;
@@ -636,9 +633,9 @@ footer {
     font-size: 0.75rem;
 }
 
-/* Ajuste del logo en el footer: más pequeño */
+/* Logo del footer del mismo tamaño que el navbar */
 .footer-logo-img {
-    height: 45px;
+    height: 55px;
     width: auto;
     max-width: none;
     filter: brightness(0) invert(1);
@@ -977,7 +974,6 @@ footer {
     .hero-left h1 { font-size: 1.8rem; }
     .hero { padding: 40px 20px; }
     
-    /* NUEVO: en móvil desactivamos la animación del gradiente y usamos un fondo más simple */
     .hero {
         background: linear-gradient(135deg, #f8fafc, #ffffff);
         animation: none;
@@ -992,9 +988,9 @@ footer {
         max-width: 180px;
     }
     
-    /* Logo del footer más pequeño en móvil */
+    /* Footer logo móvil - mismo tamaño que navbar móvil */
     .footer-logo-img {
-        height: 38px;
+        height: 45px;
     }
 }
 
@@ -1005,7 +1001,6 @@ footer {
 }
 /* ========== FONDO ANIMADO Y DECORACIONES ========== */
 
-/* Fondo general con gradiente animado */
 body {
     position: relative;
     overflow-x: hidden;
@@ -1022,21 +1017,6 @@ body::before {
     z-index: -2;
 }
 
-/* Gradiente animado en movimiento */
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.hero {
-    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.98));
-    backdrop-filter: blur(2px);
-    position: relative;
-    z-index: 2;
-}
-
-/* Hojas cayendo */
 .leaf {
     position: fixed;
     top: -20px;
@@ -1058,7 +1038,6 @@ body::before {
     }
 }
 
-/* Elementos flotantes (círculos decorativos) */
 .floating-shape {
     position: fixed;
     border-radius: 50%;
@@ -1074,7 +1053,6 @@ body::before {
     100% { transform: translateY(0px) rotate(0deg); }
 }
 
-/* Partículas sutiles */
 .particle {
     position: fixed;
     width: 2px;
