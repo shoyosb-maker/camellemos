@@ -335,6 +335,14 @@ body::before {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(11,43,94,0.2);
 }
+/* Mejora de botones: efecto de elevación más suave */
+.btn-primary, .btn-secondary, .login-btn, .whatsapp-btn {
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.btn-primary:active, .btn-secondary:active, .login-btn:active, .whatsapp-btn:active {
+    transform: scale(0.98);
+}
 
 .badge-hard { text-align: center; margin: 30px 0; }
 .badge-hard span {
