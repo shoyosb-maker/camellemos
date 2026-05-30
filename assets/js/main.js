@@ -405,17 +405,6 @@ document.querySelectorAll('.quick-btn').forEach(btn => {
     });
 });
 
-// ========== MODAL PAGO ==========
-const paymentModal = document.getElementById('paymentModal');
-document.getElementById('openPaymentModal')?.addEventListener('click', () => { if (paymentModal) paymentModal.style.display = 'flex'; });
-document.getElementById('closeModalBtn')?.addEventListener('click', () => { if (paymentModal) paymentModal.style.display = 'none'; });
-document.getElementById('mockPayBtn')?.addEventListener('click', () => {
-    if (paymentModal) paymentModal.style.display = 'none';
-    alert("✅ Pago simulado exitoso. Te contactaremos por WhatsApp.");
-    sendWhatsApp("Acabo de pagar el Plan Élite Camellando");
-});
-window.onclick = (e) => { if (e.target === paymentModal) paymentModal.style.display = 'none'; };
-
 // ========== ANIMACIONES DECORATIVAS ==========
 function createLeaf() {
     const leaf = document.createElement('div');
