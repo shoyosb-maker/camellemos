@@ -1163,7 +1163,7 @@ body::before {
     100% { transform: translateY(0px) scale(1); opacity: 0.3; }
 }
 
-/* ========== FOOTER CON LOGO BLANCO ========== */
+/* ========== FOOTER CON LOGO BLANCO MÁS GRANDE ========== */
 footer {
     background: #0B2B5E;
     color: white;
@@ -1189,13 +1189,13 @@ footer {
 }
 
 .footer-logo-img {
-    height: 45px;
+    height: 60px;   /* antes 45px, ahora más grande */
     width: auto;
     filter: brightness(0) invert(1);  /* Convierte el logo a blanco */
 }
 
 .footer-brand {
-    font-size: 1.4rem;
+    font-size: 1.6rem;  /* antes 1.4rem, más grande */
     font-weight: 700;
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
@@ -1257,9 +1257,9 @@ footer {
         gap: 16px;
     }
     .footer-logo-img {
-        height: 38px;
+        height: 50px;   /* en móvil también más grande */
     }
     .footer-brand {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 }
