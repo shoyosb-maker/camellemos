@@ -1,6 +1,6 @@
 // ========== WHATSAPP ==========
 const WHATSAPP_NUMBER = "573177366474";
-function sendWhatsApp(msg = "🐪 Hola! Quiero impulsar mi carrera con Camellando") {
+function sendWhatsApp(msg = "🐪 Hola! Quiero impulsar mi carrera con Camellemos") {
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
@@ -49,12 +49,13 @@ function showPage(pageId) {
         if (activeBtn) activeBtn.classList.add('active');
     }
 }
-document.getElementById('navInicioBtnMenu')?.addEventListener('click', () => showPage('inicio'));
+
 document.getElementById('navTrabajosBtn')?.addEventListener('click', () => showPage('trabajos'));
 document.getElementById('navCapacitacionBtn')?.addEventListener('click', () => showPage('capacitacion'));
 document.getElementById('navPlanesBtn')?.addEventListener('click', () => showPage('planes'));
 document.getElementById('navContactoBtn')?.addEventListener('click', () => showPage('contacto'));
 document.getElementById('navInicioBtn')?.addEventListener('click', () => showPage('inicio'));
+document.getElementById('navInicioBtnMenu')?.addEventListener('click', () => showPage('inicio'));
 document.getElementById('heroToJobsBtn')?.addEventListener('click', () => showPage('trabajos'));
 document.getElementById('capacitacionToPlanesBtn')?.addEventListener('click', () => showPage('planes'));
 
@@ -65,8 +66,6 @@ document.getElementById('footerPlanesBtn')?.addEventListener('click', () => show
 document.getElementById('footerContactoBtn')?.addEventListener('click', () => showPage('contacto'));
 
 // ========== JOBS ==========
-console.log("Inicializando sección de trabajos...");
-
 const jobsDB = {
     tecnologia: [
         { title: "Ingeniero Software Senior", company: "LinkedIn Corp", location: "Remoto" },
@@ -84,57 +83,32 @@ const jobsDB = {
 };
 
 function fetchJobs(career) {
-    console.log("fetchJobs llamado con carrera:", career);
     const container = document.getElementById('jobsContainer');
-    if (!container) {
-        console.error("ERROR: No se encontró el elemento con id 'jobsContainer'");
-        return;
-    }
-    console.log("Contenedor encontrado:", container);
-    
-    container.innerHTML = '<div style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Cargando ofertas...</div>';
-    
+    if (!container) return;
+    container.innerHTML = '<div style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Cargando...</div>';
     setTimeout(() => {
         const jobs = jobsDB[career];
-        if (!jobs || jobs.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:30px;">No hay ofertas disponibles para esta categoría.</div>';
-            return;
-        }
-        console.log("Ofertas a mostrar:", jobs);
-        let html = '';
-        jobs.forEach(job => {
-            html += `
-                <div class="job-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="job-title">${job.title}</div>
-                        <span class="job-badge">✨ Nueva</span>
-                    </div>
-                    <div class="job-company"><i class="fab fa-linkedin"></i> ${job.company}</div>
-                    <div class="job-location">📍 ${job.location}</div>
-                    <button class="btn-secondary" style="margin-top:12px; padding:6px 14px; font-size:0.8rem;" onclick="sendWhatsApp('Me interesa la oferta de ${job.title} en ${job.company}')">Aplicar vía WhatsApp</button>
+        container.innerHTML = jobs.map(job => `
+            <div class="job-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="job-title">${job.title}</div>
+                    <span class="job-badge">✨ Nueva</span>
                 </div>
-            `;
-        });
-        container.innerHTML = html;
-        console.log("Ofertas insertadas correctamente");
-    }, 300);
+                <div class="job-company"><i class="fab fa-linkedin"></i> ${job.company}</div>
+                <div class="job-location">📍 ${job.location}</div>
+                <button class="btn-secondary" style="margin-top:12px; padding:6px 14px; font-size:0.8rem;" onclick="sendWhatsApp('Me interesa ${job.title}')">Aplicar vía WhatsApp</button>
+            </div>
+        `).join('');
+    }, 400);
 }
 
-// Configurar los botones de categoría
-const careerBtns = document.querySelectorAll('.career-btn');
-console.log("Botones de categoría encontrados:", careerBtns.length);
-careerBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        console.log("Botón clickeado:", this);
-        careerBtns.forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.career-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.career-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        const career = this.getAttribute('data-career');
-        console.log("Carrera seleccionada:", career);
-        fetchJobs(career);
+        fetchJobs(this.dataset.career);
     });
 });
-
-// Cargar ofertas iniciales (Tecnología)
 fetchJobs('tecnologia');
 
 // ========== MATERIAL PREMIUM ==========
@@ -189,27 +163,26 @@ function renderPremiumMaterials() {
     }
 }
 
-// ========== LOGIN / REGISTRO NUEVO DISEÑO ==========
+// ========== LOGIN / REGISTRO ==========
 const loginModal = document.getElementById('loginModal');
 const loginNavBtn = document.getElementById('loginNavBtn');
 const closeLoginModal = document.getElementById('closeLoginModal');
 const userMenu = document.getElementById('userMenu');
 const userNameDisplay = document.getElementById('userNameDisplay');
 
-// Paneles y enlaces
 const loginPanel = document.getElementById('loginPanel');
 const registerPanel = document.getElementById('registerPanel');
 const showRegisterLink = document.getElementById('showRegisterLink');
 const showLoginLink = document.getElementById('showLoginLink');
 
 function showLoginPanel() {
-    loginPanel.classList.add('active');
-    registerPanel.classList.remove('active');
+    if (loginPanel) loginPanel.classList.add('active');
+    if (registerPanel) registerPanel.classList.remove('active');
 }
 
 function showRegisterPanel() {
-    registerPanel.classList.add('active');
-    loginPanel.classList.remove('active');
+    if (registerPanel) registerPanel.classList.add('active');
+    if (loginPanel) loginPanel.classList.remove('active');
 }
 
 showRegisterLink?.addEventListener('click', (e) => {
@@ -246,11 +219,9 @@ loginNavBtn?.addEventListener('click', () => {
 closeLoginModal?.addEventListener('click', () => {
     if (loginModal) loginModal.style.display = 'none';
 });
-window.addEventListener('click', (e) => {
-    if (e.target === loginModal) loginModal.style.display = 'none';
-});
+window.addEventListener('click', (e) => { if (e.target === loginModal) loginModal.style.display = 'none'; });
 
-// Formulario Login
+// Login
 document.getElementById('loginForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
@@ -274,7 +245,7 @@ document.getElementById('loginForm')?.addEventListener('submit', (e) => {
     }
 });
 
-// Formulario Registro
+// Registro
 document.getElementById('registerForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('regName').value;
@@ -302,10 +273,7 @@ if (userMenu) {
     });
 }
 
-// Inicializar UI
-updateUI();
-
-// ========== MENÚ HAMBURGUESA CON OVERLAY ==========
+// ========== MENÚ HAMBURGUESA ==========
 const menuToggle = document.getElementById('mobileMenuToggle');
 const navLinks = document.getElementById('navLinks');
 const overlay = document.getElementById('menuOverlay');
@@ -341,14 +309,12 @@ if (menuToggle) {
     });
 }
 
-// Cerrar menú al hacer clic en el overlay
 if (overlay) {
     overlay.addEventListener('click', () => {
         closeMenu();
     });
 }
 
-// Cerrar menú al hacer clic en un botón del menú (en móvil)
 document.querySelectorAll('.nav-links button').forEach(btn => {
     btn.addEventListener('click', () => {
         if (window.innerWidth <= 768) {
@@ -357,14 +323,13 @@ document.querySelectorAll('.nav-links button').forEach(btn => {
     });
 });
 
-// Cerrar menú al redimensionar la ventana a más de 768px
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         closeMenu();
     }
 });
 
-// ========== EFECTO STICKY EN NAVBAR ==========
+// ========== EFECTO STICKY NAVBAR ==========
 const navbar = document.querySelector('.navbar');
 if (navbar) {
     window.addEventListener('scroll', () => {
@@ -443,12 +408,8 @@ function createLeaf() {
     leaf.style.fontSize = Math.random() * 10 + 15 + 'px';
     leaf.style.opacity = Math.random() * 0.4 + 0.3;
     document.body.appendChild(leaf);
-    
-    setTimeout(() => {
-        leaf.remove();
-    }, 10000);
+    setTimeout(() => leaf.remove(), 10000);
 }
-
 setInterval(createLeaf, 1500);
 
 const shapes = ['●', '◆', '■', '▲', '♥'];
@@ -475,19 +436,6 @@ for (let i = 0; i < 30; i++) {
     document.body.appendChild(particle);
 }
 
-// Mostrar página de inicio
+// Inicializar UI
+updateUI();
 showPage('inicio');
-
-// ========== ANIMACIONES AL SCROLL (INTERSECTION OBSERVER) ==========
-const animatedElements = document.querySelectorAll('.service-card, .job-card, .pricing-card, .contact-box, .social-section');
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // Deja de observar una vez visible
-        }
-    });
-}, { threshold: 0.2 }); // Se activa cuando el 20% del elemento es visible
-
-animatedElements.forEach(el => observer.observe(el));
