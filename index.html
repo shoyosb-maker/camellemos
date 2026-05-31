@@ -16,6 +16,24 @@
 </head>
 <body>
 
+<!-- Verificación de sesión de administrador (redirige al dashboard si ya está logueado) -->
+<script>
+    (function() {
+        const currentUser = localStorage.getItem('camellando_user');
+        if (currentUser) {
+            try {
+                const userData = JSON.parse(currentUser);
+                if (userData.rol === 'admin') {
+                    console.log('Admin detectado, redirigiendo al dashboard...');
+                    window.location.href = 'dashboard.html';
+                }
+            } catch(e) {
+                console.error('Error al parsear usuario:', e);
+            }
+        }
+    })();
+</script>
+
 <div class="float-buttons">
     <div class="whatsapp-float" id="whatsappFloatBtn"><i class="fab fa-whatsapp"></i></div>
     <div class="chatbot-float" id="chatbotFloatBtn"><i class="fas fa-robot"></i></div>
