@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Dashboard | Camellemos Admin</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    
+    <!-- Drag and Drop (SortableJS) -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-camel"></i>
+                <span>Camellemos</span>
+                <small>Admin Panel</small>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-section="overview">
+                    <i class="fas fa-tachometer-alt"></i> Resumen
+                </button>
+                <button class="nav-btn" data-section="clients">
+                    <i class="fas fa-users"></i> Clientes
+                </button>
+                <button class="nav-btn" data-section="schedule">
+                    <i class="fas fa-calendar-alt"></i> Horarios
+                </button>
+                <button class="nav-btn" data-section="dragdrop">
+                    <i class="fas fa-arrows-alt"></i> Organizar
+                </button>
+                <button class="nav-btn" data-section="metrics">
+                    <i class="fas fa-chart-line"></i> Métricas
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Panel de Administración</h1>
+                <div class="admin-info">
+                    <i class="fas fa-user-shield"></i>
+                    <span id="adminName">Administrador</span>
+                </div>
+            </header>
+            
+            <!-- Sección: Resumen (Overview) -->
+            <div id="section-overview" class="dashboard-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <h3>Clientes</h3>
+                            <p id="totalClients">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-info">
+                            <h3>Citas agendadas</h3>
+                            <p id="totalAppointments">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-simple"></i>
+                        <div class="stat-info">
+                            <h3>Colocaciones</h3>
+                            <p id="totalPlacements">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-info">
+                            <h3>Ingresos</h3>
+                            <p id="totalRevenue">$0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="metricsChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Sección: Clientes -->
+            <div id="section-clients" class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Gestión de Clientes</h2>
+                    <button id="addClientBtn" class="btn-primary"><i class="fas fa-plus"></i> Agregar Cliente</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="clientsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientsTableBody">
+                            <tr><td colspan="6" style="text-align:center;">Cargando clientes...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sección: Horarios (Drag and Drop) -->
+            <div id="section-schedule" class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Horarios (Arrastra para reordenar)</h2>
+                    <button id="addScheduleBtn" class="btn-primary"><i class="fas fa-plus"></i> Agregar Horario</button>
+                </div>
+                <div class="schedule-list" id="scheduleList">
+                    <div class="schedule-item" data-id="1">
+                        <div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                        <div class="schedule-info">
+                            <strong>Lunes 10:00 AM</strong>
+                            <span>Cliente: Juan Pérez</span>
+                            <span>Tipo: Entrevista Mock</span>
+                        </div>
+                        <button class="delete-schedule"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="schedule-item" data-id="2">
+                        <div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                        <div class="schedule-info">
+                            <strong>Martes 2:00 PM</strong>
+                            <span>Cliente: María López</span>
+                            <span>Tipo: Revisión HV</span>
+                        </div>
+                        <button class="delete-schedule"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="schedule-item" data-id="3">
+                        <div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                        <div class="schedule-info">
+                            <strong>Miércoles 11:00 AM</strong>
+                            <span>Cliente: Carlos Gómez</span>
+                            <span>Tipo: Capacitación</span>
+                        </div>
+                        <button class="delete-schedule"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección: Drag and Drop (Organizador general) -->
+            <div id="section-dragdrop" class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-arrows-alt"></i> Organizador (Drag & Drop)</h2>
+                    <p>Arrastra los elementos para reordenar tus prioridades</p>
+                </div>
+                <div class="drag-container" id="dragContainer">
+                    <div class="drag-card" data-id="1">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Revisar HV pendientes</h3>
+                        <p>3 solicitudes nuevas</p>
+                    </div>
+                    <div class="drag-card" data-id="2">
+                        <i class="fas fa-video"></i>
+                        <h3>Preparar webinar</h3>
+                        <p>Próximo miércoles</p>
+                    </div>
+                    <div class="drag-card" data-id="3">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Responder correos</h3>
+                        <p>12 sin leer</p>
+                    </div>
+                    <div class="drag-card" data-id="4">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Actualizar métricas</h3>
+                        <p>Reporte mensual</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección: Métricas -->
+            <div id="section-metrics" class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Métricas y Estadísticas</h2>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Registros de clientes (últimos 30 días)</h3>
+                        <canvas id="clientsChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Distribución por servicio</h3>
+                        <canvas id="servicesChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal para agregar cliente -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeClientModal">&times;</span>
+            <h3>Agregar Cliente</h3>
+            <form id="addClientForm">
+                <input type="text" id="clientName" placeholder="Nombre completo" required>
+                <input type="email" id="clientEmail" placeholder="Correo electrónico" required>
+                <input type="tel" id="clientPhone" placeholder="Teléfono">
+                <button type="submit" class="btn-primary">Guardar Cliente</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal para agregar horario -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeScheduleModal">&times;</span>
+            <h3>Agregar Horario</h3>
+            <form id="addScheduleForm">
+                <input type="text" id="scheduleDay" placeholder="Día (ej: Lunes 10:00 AM)" required>
+                <input type="text" id="scheduleClient" placeholder="Cliente" required>
+                <select id="scheduleType">
+                    <option value="Entrevista Mock">Entrevista Mock</option>
+                    <option value="Revisión HV">Revisión HV</option>
+                    <option value="Capacitación">Capacitación</option>
+                    <option value="Outsourcing">Outsourcing</option>
+                </select>
+                <button type="submit" class="btn-primary">Guardar Horario</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
