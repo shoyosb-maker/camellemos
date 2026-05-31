@@ -163,7 +163,7 @@ function renderPremiumMaterials() {
     }
 }
 
-// ========== LOGIN / REGISTRO ==========
+// ========== LOGIN / REGISTRO CON REDIRECCIÓN PARA ADMIN ==========
 const loginModal = document.getElementById('loginModal');
 const loginNavBtn = document.getElementById('loginNavBtn');
 const closeLoginModal = document.getElementById('closeLoginModal');
@@ -198,6 +198,8 @@ function updateUI() {
     const user = localStorage.getItem('camellando_user');
     if (user) {
         const userData = JSON.parse(user);
+        // Si es admin, no mostramos la UI normal porque redirigimos
+        if (userData.rol === 'admin') return;
         if (loginNavBtn) loginNavBtn.style.display = 'none';
         if (userMenu) {
             userMenu.style.display = 'flex';
@@ -221,11 +223,25 @@ closeLoginModal?.addEventListener('click', () => {
 });
 window.addEventListener('click', (e) => { if (e.target === loginModal) loginModal.style.display = 'none'; });
 
-// Login
+// LOGIN CON REDIRECCIÓN PARA ADMINISTRADOR
 document.getElementById('loginForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
+    
+    // SUPERUSUARIO (ADMINISTRADOR) - Credenciales actualizadas
+    if (email === 'shoyosb@gmail.com' && password === 'Sertecon2') {
+        localStorage.setItem('camellando_user', JSON.stringify({ 
+            name: 'Super Administrador', 
+            email: email, 
+            rol: 'admin' 
+        }));
+        alert('✅ Acceso de administrador concedido. Redirigiendo al panel...');
+        window.location.href = 'dashboard.html';
+        return;
+    }
+    
+    // Usuario normal
     if (email && password.length >= 1) {
         const stored = localStorage.getItem('camellando_user');
         if (stored) {
@@ -245,14 +261,19 @@ document.getElementById('loginForm')?.addEventListener('submit', (e) => {
     }
 });
 
-// Registro
+// REGISTRO
 document.getElementById('registerForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('regName').value;
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
     if (name && email && password.length >= 4) {
-        localStorage.setItem('camellando_user', JSON.stringify({ name, email, password }));
+        // Evitar que un usuario normal se registre con el email del administrador
+        if (email === 'shoyosb@gmail.com') {
+            alert('❌ Este correo está reservado para el administrador.');
+            return;
+        }
+        localStorage.setItem('camellando_user', JSON.stringify({ name, email, password, rol: 'user' }));
         alert(`✅ ¡Cuenta creada exitosamente, ${name}! Ahora puedes iniciar sesión. 🐪`);
         showLoginPanel();
         document.getElementById('loginEmail').value = email;
@@ -262,7 +283,7 @@ document.getElementById('registerForm')?.addEventListener('submit', (e) => {
     }
 });
 
-// Cierre de sesión
+// CIERRE DE SESIÓN
 if (userMenu) {
     userMenu.addEventListener('click', () => {
         if (confirm('¿Cerrar sesión?')) {
@@ -397,7 +418,20 @@ document.querySelectorAll('.quick-btn').forEach(btn => {
     });
 });
 
+// ========== ANIMACIONES AL SCROLL (INTERSECTION OBSERVER) ==========
+const animatedElements = document.querySelectorAll('.service-card, .job-card, .pricing-card, .contact-box, .social-section');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
 animatedElements.forEach(el => observer.observe(el));
+
 // ========== ANIMACIONES DECORATIVAS ==========
 function createLeaf() {
     const leaf = document.createElement('div');
@@ -440,4 +474,3 @@ for (let i = 0; i < 30; i++) {
 // Inicializar UI
 updateUI();
 showPage('inicio');
-
