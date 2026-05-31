@@ -84,7 +84,6 @@ body::before {
     filter: drop-shadow(0 4px 12px rgba(245,158,11,0.3));
 }
 
-/* Botón hamburguesa */
 .menu-toggle {
     display: none;
     font-size: 1.6rem;
@@ -202,20 +201,21 @@ body::before {
     z-index: 1;
 }
 
-/* ========== HERO ========== */
+/* ========== HERO CORREGIDO ========== */
 .hero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 60px 0 50px;
-    gap: 40px;
+    padding: 50px 30px;
+    gap: 30px;
     background: linear-gradient(135deg, #f5f7fe 0%, #eef2ff 50%, #ffffff 100%);
     background-size: 200% 200%;
     animation: gradientShift 6s ease infinite;
     border-radius: 32px;
     margin: 20px 0;
     transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 @keyframes gradientShift {
@@ -224,9 +224,13 @@ body::before {
     100% { background-position: 0% 50%; }
 }
 
-.hero-left { flex: 1; }
+.hero-left {
+    flex: 1;
+    min-width: 250px;
+}
+
 .hero-left h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     line-height: 1.2;
     font-weight: 800;
     background: linear-gradient(135deg, #0B2B5E, #2C3E66);
@@ -235,6 +239,8 @@ body::before {
     color: transparent;
     position: relative;
     padding-bottom: 15px;
+    margin-bottom: 20px;
+    word-wrap: break-word;
 }
 
 .hero-left h1::after {
@@ -250,15 +256,17 @@ body::before {
 
 .hero-left p {
     font-size: 1rem;
-    margin: 24px 0;
+    margin: 20px 0;
     color: #4b5563;
-    line-height: 1.6;
+    line-height: 1.5;
+    word-wrap: break-word;
 }
 
 .hero-right {
     flex: 1;
+    min-width: 240px;
     background: linear-gradient(145deg, #EFF3FC, #FFFFFF);
-    padding: 35px;
+    padding: 25px;
     border-radius: 32px;
     text-align: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
@@ -266,7 +274,7 @@ body::before {
 
 .hero-illustration {
     width: 100%;
-    max-width: 260px;
+    max-width: 240px;
     height: auto;
     margin: 0 auto;
     display: block;
@@ -282,11 +290,16 @@ body::before {
     margin-bottom: 16px;
 }
 
-.btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
 
 .btn-primary, .btn-secondary {
-    padding: 14px 32px;
-    font-size: 0.95rem;
+    padding: 12px 24px;
+    font-size: 0.9rem;
     font-weight: 700;
     border-radius: 40px;
     cursor: pointer;
@@ -294,6 +307,7 @@ body::before {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -944,11 +958,39 @@ footer {
     display: block;
 }
 
+/* ========== ANIMACIONES AL SCROLL ========== */
+.service-card, .job-card, .pricing-card, .contact-box, .social-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.service-card.visible, .job-card.visible, .pricing-card.visible,
+.contact-box.visible, .social-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-card:nth-child(1) { transition-delay: 0.05s; }
+.service-card:nth-child(2) { transition-delay: 0.1s; }
+.service-card:nth-child(3) { transition-delay: 0.15s; }
+.service-card:nth-child(4) { transition-delay: 0.2s; }
+
+/* Mejora de botones: efecto de elevación más suave y clic */
+.btn-primary, .btn-secondary, .login-btn, .whatsapp-btn {
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.btn-primary:active, .btn-secondary:active, .login-btn:active, .whatsapp-btn:active {
+    transform: scale(0.98);
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
     }
+    
     .nav-links {
         display: none;
         flex-direction: column;
@@ -965,14 +1007,17 @@ footer {
         gap: 8px;
         border: 1px solid rgba(0,0,0,0.05);
     }
+    
     .nav-links.active {
         display: flex;
         animation: slideDown 0.3s ease;
     }
+    
     @keyframes slideDown {
         from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
     }
+    
     .nav-links button {
         padding: 14px 16px;
         width: 100%;
@@ -982,31 +1027,76 @@ footer {
         border-radius: 16px;
         background: white;
     }
+    
     .nav-links button:last-child { border-bottom: none; }
+    
     .btn-login-nav {
         margin-left: 0 !important;
         text-align: center;
         margin-top: 8px;
         width: 100%;
     }
+    
     .user-avatar {
         margin-left: 0;
         justify-content: center;
         margin-top: 8px;
         width: 100%;
     }
+    
     .logo-img { height: 45px; }
-    .hero-left h1 { font-size: 1.8rem; }
-    .hero { padding: 40px 20px; }
+    
+    /* Hero responsive */
     .hero {
-        background: linear-gradient(135deg, #f8fafc, #ffffff);
-        animation: none;
+        padding: 30px 20px;
+        flex-direction: column;
+        text-align: center;
     }
+    
+    .hero-left h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hero-left p {
+        font-size: 0.9rem;
+    }
+    
+    .hero-left {
+        text-align: center;
+    }
+    
+    .hero-left h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .btn-group {
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+        white-space: normal;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .hero-right {
+        padding: 20px;
+    }
+    
+    .hero-illustration {
+        max-width: 160px;
+    }
+    
     .services-grid { padding: 30px 20px; }
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; }
     .chatbot-widget { width: 320px; right: 15px; }
-    .hero-illustration { max-width: 180px; }
     .footer-logo-img { height: 45px; }
     .footer-brand { font-size: 1.3rem; }
     .login-card { padding: 28px 20px; }
@@ -1015,8 +1105,23 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .hero-left h1 { font-size: 1.5rem; }
-    .btn-primary, .btn-secondary { padding: 10px 20px; font-size: 0.85rem; }
+    .hero-left h1 {
+        font-size: 1.4rem;
+    }
+    
+    .hero-left p {
+        font-size: 0.85rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-group {
+        gap: 8px;
+    }
+    
     .chatbot-widget { width: 300px; }
 }
 
@@ -1030,10 +1135,12 @@ footer {
     opacity: 0.6;
     animation: fall linear infinite;
 }
+
 @keyframes fall {
     0% { transform: translateY(-20px) rotate(0deg); opacity: 0.7; }
     100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
+
 .floating-shape {
     position: fixed;
     border-radius: 50%;
@@ -1042,11 +1149,13 @@ footer {
     pointer-events: none;
     animation: float 8s ease-in-out infinite;
 }
+
 @keyframes float {
     0% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-20px) rotate(5deg); }
     100% { transform: translateY(0px) rotate(0deg); }
 }
+
 .particle {
     position: fixed;
     width: 2px;
@@ -1057,6 +1166,7 @@ footer {
     pointer-events: none;
     animation: particleFloat 6s ease-in-out infinite;
 }
+
 @keyframes particleFloat {
     0% { transform: translateY(0px) scale(1); opacity: 0.3; }
     50% { transform: translateY(-30px) scale(1.5); opacity: 0.6; }
